@@ -10,7 +10,7 @@ const listRestoran = async () => {
     };
     const response = await axios.post(`/search/`, requestData, {
         headers: {
-            'x-rapidapi-key': '415384770dmshc54d89d47a0067fp1f45a6jsn4c9321679498',
+            'x-rapidapi-key': '95f3dfa305msh04f25fde4dbe8cep148275jsn1d0d766ec3fe',
             'x-rapidapi-host': 'worldwide-restaurants.p.rapidapi.com',
           }
     });
