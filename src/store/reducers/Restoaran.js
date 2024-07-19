@@ -6,6 +6,7 @@ const searchTerm = createSlice({
     restourant: [],
     check : false,
     level : "",
+    detail : {}
   },
   reducers: {
     fillRestauran: (state, action) => { 
@@ -17,24 +18,11 @@ const searchTerm = createSlice({
     switchLevel: (state, action) => { 
       state.level = action.payload;
     },
-    // removeProduct: (state, action) => {
-    //   state.category = action.payload;
-    //   const updatedProduct = state.product_detail.filter(item => item.product_variant_id !== action.payload.product_variant_id);
-    //   state.product_detail = updatedProduct;
-    // },
-
-    // updateProduct: (state, action) => {
-    //   state.category = action.payload;
-    //   const updatedProduct = state.product_detail.filter(item => item.product_variant_id !== action.payload.product_variant_id);
-    //   const newItems = [...updatedProduct];
-    //   newItems.push(action.payload);
-    //   state.product_detail = newItems;
-    // },
-    // clearProduct: (state) => {
-    //     state.product_detail =[]
-    // }
+    switchDetail: (state, action) => { 
+      state.detail = action.payload;
+    },
   },
 });
 
-export const { fillRestauran , switchCheck , switchLevel} = searchTerm.actions;
+export const { fillRestauran , switchCheck , switchLevel, switchDetail} = searchTerm.actions;
 export default searchTerm.reducer;

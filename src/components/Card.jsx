@@ -3,8 +3,10 @@ import full from "../assets/full.png";
 import half from "../assets/half.png";
 import empty from "../assets/empty.png";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({ resto }) => {
+  const navigate = useNavigate();
   // Function to render star ratings
   const renderStars = (rating) => {
     const stars = [];
@@ -78,7 +80,11 @@ const Card = ({ resto }) => {
         <p className="text-sm font-medium font-sans dark:text-gray-800">{isOpen ? "Open Now" : "Closed"}</p>
       </div>
 
-      <button type="button" className="text-white rounded-none mt-auto w-full bg-indigo-900 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-sans font-thin text-sm px-5 py-2.5 me-2">
+      <button
+        type="button"
+        className="text-white rounded-none mt-auto w-full bg-indigo-900 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-sans font-thin text-sm px-5 py-2.5 me-2"
+        onClick={() => navigate("/detail", { state: { resto } })}
+      >
         LEARN MORE
       </button>
     </div>
