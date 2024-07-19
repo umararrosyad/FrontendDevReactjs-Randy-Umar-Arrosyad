@@ -6,7 +6,8 @@ const searchTerm = createSlice({
     restourant: [],
     check : false,
     level : "",
-    detail : {}
+    detail : {},
+    loading : false
   },
   reducers: {
     fillRestauran: (state, action) => { 
@@ -21,8 +22,11 @@ const searchTerm = createSlice({
     switchDetail: (state, action) => { 
       state.detail = action.payload;
     },
+    setLoading: (state, action) => { 
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { fillRestauran , switchCheck , switchLevel, switchDetail} = searchTerm.actions;
+export const { fillRestauran , switchCheck , switchLevel, switchDetail, setLoading} = searchTerm.actions;
 export default searchTerm.reducer;

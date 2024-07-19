@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import { listRestoran } from "../modules/fetch/ListRestoran";
 import { useSelector, useDispatch } from "react-redux";
-import { fillRestauran } from "../store/reducers/Restoaran";
+import { fillRestauran, setLoading} from "../store/reducers/Restoaran";
 
 export default function Content() {
   const [resto, setResto] = useState([]);
@@ -14,10 +14,12 @@ export default function Content() {
   const dispatch = useDispatch();
   const openNowChecked = useSelector((state) => state.restauran.check);
   const priceLevel = useSelector((state) => state.restauran.level);
+  const loading = useSelector((state) => state.restauran.loading);
 
   useEffect(() => {
     const fetchCard = async () => {
       try {
+        dispatch(setLoading(true));
         const response = await listRestoran();
         dispatch(fillRestauran(response.results.data));
         setResto(response.results.data);
@@ -25,6 +27,8 @@ export default function Content() {
         // console.log(restoran);
       } catch (e) {
         console.log(e);
+      } finally{
+        dispatch(setLoading(false));
       }
     };
     fetchCard();

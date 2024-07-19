@@ -1,43 +1,40 @@
 /* eslint-disable no-unused-vars */
-// import Nav from "../components/Nav";
-// import Content from "../components/Content";
-// import React from 'react';
-
 import full from "../assets/full.png";
 import half from "../assets/half.png";
 import empty from "../assets/empty.png";
 import Reviews from "../components/Reviews";
 import { useLocation } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import { fillRestauran, setLoading } from "../store/reducers/Restoaran";
 import { listReviws } from "../modules/fetch/ListRestoran";
 import React, { useEffect, useState } from "react";
 
-
 export default function RestoDetail() {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.restauran.loading);
+
   const location = useLocation();
   const [reviews, setReviews] = useState([]);
   const { resto } = location.state || {};
   useEffect(() => {
     const fetchCard = async () => {
       try {
+        dispatch(setLoading(true));
         const response = await listReviws(resto.location_id);
         setReviews(response.results.data);
         console.log(response.results);
       } catch (e) {
         console.log(e);
+      } finally {
+        dispatch(setLoading(false));
       }
     };
     fetchCard();
-  }, [resto.location_id]);
+  }, [resto.location_id, dispatch]);
 
-  
   if (!resto) {
     return <div>Restoran tidak ditemukan</div>;
   }
-  
- 
-
- 
 
   const renderStars = (rating) => {
     const stars = [];
@@ -125,15 +122,12 @@ export default function RestoDetail() {
           <p className="text-xl font-medium ms-2 font-sans text-white">Reviews</p>
         </div>
         <div className="mx-7">
-        {reviews
-            .map((review) => (
-              <>
+          {reviews.map((review) => (
+            <>
               <Reviews key={review.location_id} review={review} />
-              <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700" /> 
-              </>
-               
-            ))}
-          
+              <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700" />
+            </>
+          ))}
         </div>
       </div>
     </>
